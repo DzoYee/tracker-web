@@ -1,42 +1,21 @@
 import { Component, PropTypes } from 'react'
 import Tasklist from './Tasklist'
 import Graph from './Graph'
+import Form from './Form'
 
 
 class Project extends Component {
   render() {
     const { completeTask, addTask, startTask, id, name, tasks } = this.props
-    let inputName
-    let inputDescription
     return (
       <div>
         <h1>{name}</h1>
         <Graph tasks={tasks} />
         <div className='container bordered-container'>
-          <h2 className='createTask block-label'> Create New Task</h2>
-          <hr></hr>
-          <div>
-            <form onSubmit={e => {
-              e.preventDefault()
-              if (!inputName.value.trim()) {
-                return
-              }
-              addTask(id, inputName.value, inputDescription.value)
-              inputName.value = ''
-              inputDescription.value = ''
-              document.querySelector('.first-input').focus();
-            }}>
-              <div className="form-group">
-                <label className='input-label' for="name">Task Name</label>
-                <input className='form-control first-input input' ref={node => { inputName = node }} />
-              </div>
-              <div className="form-group">
-                <label className='input-label' for="desc">Task Description</label>
-                <input className='form-control input' ref={node => { inputDescription = node }} />
-              </div>
-              <button type='submit' className='btn btn-primary'>Create</button>
-            </form>
-          </div>
+          <Form 
+            id={id}
+            addTask={addTask}
+          />
           <Tasklist
             startTask={startTask}
             completeTask={completeTask}
